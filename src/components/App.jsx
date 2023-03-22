@@ -22,11 +22,20 @@ import CreateArea from "./CreateArea";
 
 function App() {
     const [notes,setNotes] = React.useState([])
+
     function addNote(noteData){
         setNotes(prev =>{
             return [...prev,noteData]
         })
+    }
 
+    function onDelete(id){
+        console.log("id is ->"+ id)
+        setNotes(prev => {
+            return prev.filter((n,index)=>{
+                return id!==index
+            })
+        })
     }
 
 
@@ -37,7 +46,7 @@ function App() {
             {
                 notes.map((note,index)=>{
                    { console.log(note)}
-                   return (<Note key={index} title={note.title} content={note.content} /> )
+                   return (<Note key={index} id={index} title={note.title} content={note.content} onDelete={onDelete} /> )
                 })
             }
             <Footer/>
